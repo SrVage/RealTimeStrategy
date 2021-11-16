@@ -1,0 +1,16 @@
+{
+    "name": "ControlSystem",
+    "rootNamespace": "",
+    "references": [
+        "GUID:62287e9d69e3c9b4fb664e61af9b6939"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
