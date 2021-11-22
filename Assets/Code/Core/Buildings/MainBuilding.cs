@@ -30,7 +30,7 @@ namespace Code.Core
 
         public override void ExecuteSpecificCommand(IProduceUnitCommand command)
         {
-            Vector3 offset = new Vector3(_count%5, 0, _count/5);
+            Vector3 offset = new Vector3(2+_count%5, 0, _count/5);
             Instantiate(command.UnitPrefab, transform.position + offset, Quaternion.identity, _unitParent);
             _count++;
         }

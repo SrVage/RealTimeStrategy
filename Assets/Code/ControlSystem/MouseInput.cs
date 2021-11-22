@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Code.Abstractions;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Code.ControlSystem
 {
@@ -9,6 +10,7 @@ namespace Code.ControlSystem
     {
         private Camera _camera;
         [SerializeField] private SelectableValue _selectedbject;
+        [SerializeField] private EventSystem _eventSystem;
         private ISelectable _currentSelect;
         private void Awake()
         {
@@ -17,7 +19,7 @@ namespace Code.ControlSystem
 
         private void Update()
         {
-            if (!Input.GetMouseButtonDown(0))
+            if (!Input.GetMouseButtonDown(0) || _eventSystem.IsPointerOverGameObject())
                 return;
             var hits = Physics.RaycastAll(_camera.ScreenPointToRay(Input.mousePosition));
             if (hits.Length ==0) 

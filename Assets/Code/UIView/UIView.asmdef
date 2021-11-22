@@ -1,9 +1,10 @@
 {
-    "name": "ControlSystem",
+    "name": "UIView",
     "rootNamespace": "",
     "references": [
         "GUID:4f7740168b372b14dbdb05ba393e5660",
-        "GUID:96c517900980b21498cad2d52b1eb438"
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:45d69e54d04d71846bbef156f1fead9b"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

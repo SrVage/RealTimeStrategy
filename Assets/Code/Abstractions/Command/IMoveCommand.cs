@@ -1,7 +1,9 @@
+using UnityEngine;
+
 namespace Code.Abstractions.Command
 {
-    public class IMoveCommand:ICommand
+    public interface IMoveCommand:ICommand
     {
-        
+        public void Move();
     }
 }
