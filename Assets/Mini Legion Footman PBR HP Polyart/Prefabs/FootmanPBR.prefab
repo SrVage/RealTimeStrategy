@@ -538,6 +538,7 @@ GameObject:
   - component: {fileID: 6089319202044926974}
   - component: {fileID: 853482746196584232}
   - component: {fileID: 8547371472829272172}
+  - component: {fileID: 5838604467674846278}
   m_Layer: 0
   m_Name: FootmanPBR
   m_TagString: Untagged
@@ -647,6 +648,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 528e5ed1093c486aab3ec814f0f54825, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5838604467674846278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812659917213882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bc632e64d9d41c4ab5e8bdda0ce3806, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: 100
+  _icon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &1849239188663008
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4589070283980847928}
   - component: {fileID: 6842600245349501421}
   - component: {fileID: 6842600245349501423}
+  - component: {fileID: 2375340305518980771}
   m_Layer: 0
   m_Name: MainBuilding
   m_TagString: Untagged
@@ -46,8 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d335c6c696f2c474da63389aaebdd690, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 0
-  _icon: {fileID: 0}
+  _health: 400
+  _icon: {fileID: 21300000, guid: b433517fc98479f4a89d818dcd2076f9, type: 3}
   _productionPrefab: {fileID: 1812659917213882, guid: 705458a9eac3ae740932e6aa33f3ca89, type: 3}
   _unitParent: {fileID: 0}
 --- !u!114 &6842600245349501423
@@ -57,7 +58,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5533934242509093232}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
@@ -68,6 +69,20 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!114 &2375340305518980771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5533934242509093232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bc632e64d9d41c4ab5e8bdda0ce3806, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: 400
+  _icon: {fileID: 21300000, guid: b433517fc98479f4a89d818dcd2076f9, type: 3}
 --- !u!1 &5964795449183535754
 GameObject:
   m_ObjectHideFlags: 0

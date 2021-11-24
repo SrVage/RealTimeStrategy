@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using Code.Tools.Scriptable;
 using UnityEngine;
 
 namespace Code.Tools.InjectAssetAttribute
