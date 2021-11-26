@@ -6,7 +6,7 @@ namespace Code.Core.Unit
     {
         public override void ExecuteSpecificCommand(IPatrolCommand command)
         {
-            command.Patrol();
+            
         }
     }
 }

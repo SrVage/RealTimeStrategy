@@ -6,7 +6,6 @@ namespace Code.Core.Unit
     {
         public override void ExecuteSpecificCommand(IAttackCommand command)
         {
-            command.Attack();
         }
     }
 }

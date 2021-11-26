@@ -5,11 +5,12 @@ namespace Code.ControlSystem.Command
 {
     public class MoveCommand:IMoveCommand
     {
-        public void Move(Vector3 target)
+        public MoveCommand(Vector3 target)
         {
+            this.Target = target;
             Debug.Log($"Move {target}");
         }
 
-        public Vector3 tagret { get; }
+        public Vector3 Target { get; }
     }
 }

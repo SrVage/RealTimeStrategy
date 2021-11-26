@@ -14,7 +14,8 @@ namespace Code.UI.UIPresenter
 {
     public class CommandButtonPresenter:MonoBehaviour
     {
-        [SerializeField] private SelectableValue _selectable;
+        [Inject] private SelectableValue _selectable;
+        [Inject] private GroundPointValue _groundPoint;
         [SerializeField] private CommandButtonsView _view;
         
         [Inject] private CommandButtonsModel _model;

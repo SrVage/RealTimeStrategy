@@ -1,7 +1,9 @@
+using UnityEngine;
+
 namespace Code.Abstractions.Command
 {
     public interface IPatrolCommand:ICommand
     {
-        public void Patrol();
+        public Vector3 Target { get; }
     }
 }

@@ -4,14 +4,18 @@ using Code.Abstractions;
 using Code.ControlSystem.Scriptable;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Zenject;
 
 namespace Code.ControlSystem
 {
     public class MouseInput : MonoBehaviour
     {
+        private const string LayerNamesGround = "Ground";
+        private const string LayerNamesUnit = "Unit";
         private Camera _camera;
-        [SerializeField] private SelectableValue _selectedbject;
-        [SerializeField] private GroundPointValue _groundPoint;
+        [Inject] private SelectableValue _selectedbject;
+        [Inject] private GroundPointValue _groundPoint;
+        [Inject] private AttackedValue _attackedValue;
         [SerializeField] private EventSystem _eventSystem;
         private ISelectable _currentSelect;
 
@@ -43,11 +47,15 @@ namespace Code.ControlSystem
             }
             else
             {
-                LayerMask mask = LayerMask.GetMask("Ground");
+                LayerMask mask = LayerMask.GetMask(LayerNamesGround)|LayerMask.GetMask(LayerNamesUnit);
                 if (Physics.Raycast(ray, out var hit, mask))
                 {
-                    Debug.Log(hit.point);
-                    _groundPoint.SetValue(hit.point);
+                    if (hit.collider.GetComponentInParent<ICanAttacked>()!=null)
+                    {
+                        _attackedValue.SetValue(hit.collider.GetComponentInParent<ICanAttacked>());
+                    }
+                    else
+                        _groundPoint.SetValue(hit.point);
                 }
             }
         }

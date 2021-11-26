@@ -1,5 +1,6 @@
 using System;
 using Code.Abstractions.Command;
+using UnityEngine;
 using Zenject;
 
 namespace Code.UI.UIModel
@@ -18,6 +19,7 @@ namespace Code.UI.UIModel
 
         public void OnCommandButtonClicked(ICommandExecutor commandExecutor)
         {
+            Debug.LogWarning(commandExecutor);
             if (_commandIsPending)
                 ProcessOnCancelled();
             _commandIsPending = true;
@@ -36,6 +38,7 @@ namespace Code.UI.UIModel
         
         public void ExecuteCommandWrapper(ICommandExecutor executor, object command)
         {
+            Debug.LogWarning(executor+" "+command);
             executor.ExecuteCommand(command);
             _commandIsPending = false;
             OnCommandSent?.Invoke();

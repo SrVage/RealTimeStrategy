@@ -4,6 +4,6 @@ namespace Code.Abstractions.Command
 {
     public interface IMoveCommand:ICommand
     {
-        public Vector3 tagret { get; }
+        public Vector3 Target { get; }
     }
 }

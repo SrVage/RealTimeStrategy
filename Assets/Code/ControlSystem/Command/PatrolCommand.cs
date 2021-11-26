@@ -5,9 +5,12 @@ namespace Code.ControlSystem.Command
 {
     public class PatrolCommand:IPatrolCommand
     {
-        public void Patrol()
+        public PatrolCommand(Vector3 target)
         {
-            Debug.Log("Patrol");
+            Target = target;
+            Debug.Log("Patrol"+target);
         }
+
+        public Vector3 Target { get; }
     }
 }
