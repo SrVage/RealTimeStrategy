@@ -17,6 +17,12 @@ namespace Code.UI.UIModel
         [Inject] private CommandCreatorBase<IStopCommand> _stopper;
         private bool _commandIsPending;
 
+        public void Move(ICommandExecutor move)
+        {
+            _mover.ProcessCommandExecutor(move,
+                command => ExecuteCommandWrapper(move, command));
+        }
+
         public void OnCommandButtonClicked(ICommandExecutor commandExecutor)
         {
             Debug.LogWarning(commandExecutor);
@@ -38,7 +44,6 @@ namespace Code.UI.UIModel
         
         public void ExecuteCommandWrapper(ICommandExecutor executor, object command)
         {
-            Debug.LogWarning(executor+" "+command);
             executor.ExecuteCommand(command);
             _commandIsPending = false;
             OnCommandSent?.Invoke();

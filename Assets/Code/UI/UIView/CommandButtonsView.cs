@@ -39,7 +39,7 @@ namespace Code.UI.UIView
                 button.GetComponent<Button>().onClick.AddListener(()=>OnClick?.Invoke(commandExecutor));
             }
         }
-
+        
         public void BlockButton(ICommandExecutor commandExecutor)
         {
             UnblockAllButton();

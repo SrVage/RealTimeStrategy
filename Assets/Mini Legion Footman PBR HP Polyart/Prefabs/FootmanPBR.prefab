@@ -540,6 +540,9 @@ GameObject:
   - component: {fileID: 8547371472829272172}
   - component: {fileID: 5838604467674846278}
   - component: {fileID: -250974706721313242}
+  - component: {fileID: 8726998707380186096}
+  - component: {fileID: 1537526265490727055}
+  - component: {fileID: 5398022963044073371}
   m_Layer: 8
   m_Name: FootmanPBR
   m_TagString: Untagged
@@ -625,6 +628,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ed91ed54c3745158bba5cd96fd15118, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _navMeshAgent: {fileID: 8726998707380186096}
+  _stop: {fileID: 1537526265490727055}
+  _warriorStop: {fileID: 8547371472829272172}
 --- !u!114 &853482746196584232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -675,6 +681,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e58481970f9440dd9baf40c65967ea6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!195 &8726998707380186096
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812659917213882}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &1537526265490727055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812659917213882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a6eeaca128045f9b674c083df6e4f78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _navMeshAgent: {fileID: 8726998707380186096}
+--- !u!114 &5398022963044073371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812659917213882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c83bbd45b79d45308ae7339f3b1e707a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 95640295303221614}
+  _warriorMovable: {fileID: 6089319202044926974}
 --- !u!1 &1849239188663008
 GameObject:
   m_ObjectHideFlags: 0
