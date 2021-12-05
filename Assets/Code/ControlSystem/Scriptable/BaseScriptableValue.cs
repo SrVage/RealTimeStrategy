@@ -1,6 +1,7 @@
 using System;
 using Code.Abstractions;
 using Code.Abstractions.Command;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +20,11 @@ namespace Code.ControlSystem.Scriptable
             {
                 _baseScriptableValue = baseScriptableValue;
                 _baseScriptableValue.OnSelected += Selected;
+            }           
+            public NewValueNotifier(BaseScriptableValue<TAwaited> baseScriptableValue, IObservable<TAwaited> observable)
+            {
+                _baseScriptableValue = baseScriptableValue;
+                observable.Subscribe(Selected);
             }
 
             private void Selected(TAwaited obj)
@@ -30,15 +36,15 @@ namespace Code.ControlSystem.Scriptable
             }
         }
         public T CurrentValue { get; private set; }
-        public event Action<T> OnSelected;
+        public virtual event Action<T> OnSelected;
 
-        public void SetValue(T selectable)
+        public virtual void SetValue(T selectable)
         {
             CurrentValue = selectable;
             OnSelected?.Invoke(selectable);
         }
-
-        public IAwaiter<T> GetAwaiter() => 
+        
+        public virtual IAwaiter<T> GetAwaiter() => 
             new NewValueNotifier<T>(this);
     }
 }

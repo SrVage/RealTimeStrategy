@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Code.Abstractions;
 using Code.ControlSystem.Scriptable;
+using UniRx;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
@@ -12,6 +13,7 @@ namespace Code.ControlSystem
     {
         private const string LayerNamesGround = "Ground";
         private const string LayerNamesUnit = "Unit";
+        LayerMask mask;
         private Camera _camera;
         [Inject] private SelectableValue _selectedbject;
         [Inject] private GroundPointValue _groundPoint;
@@ -21,43 +23,41 @@ namespace Code.ControlSystem
 
         private void Awake()
         {
+            mask = LayerMask.GetMask(LayerNamesGround) | LayerMask.GetMask(LayerNamesUnit);
             _camera = Camera.main;
+            var leftClickStream = Observable.EveryUpdate()
+                .Where(_ => Input.GetMouseButtonDown(0))
+                .Where(_ => !_eventSystem.IsPointerOverGameObject())
+                .Select(hit => Physics.RaycastAll(_camera.ScreenPointToRay(Input.mousePosition)))
+                .Where(hits => hits.Length>0);
+            var rightClickStream = Observable.EveryUpdate()
+                .Where(_ => Input.GetMouseButtonDown(1))
+                .Where(_ => !_eventSystem.IsPointerOverGameObject())
+                .Select(h => (Physics.RaycastAll(_camera.ScreenPointToRay(Input.mousePosition), mask)));
+            leftClickStream.Subscribe(hit=>LeftMouse(hit));
+            rightClickStream.Subscribe(hit => RightMouse(hit.FirstOrDefault()));
         }
 
-        private void Update()
+        private void LeftMouse(RaycastHit[] hits)
         {
-            if (!Input.GetMouseButtonDown(0) && !Input.GetMouseButtonDown(1))
-                return;
-            if (_eventSystem.IsPointerOverGameObject())
-                return;
-            var ray = _camera.ScreenPointToRay(Input.mousePosition);
-            if (Input.GetMouseButtonDown(0))
+            if (_currentSelect != null)
+                _currentSelect.Unselecting();
+            _currentSelect = hits
+                .Select(hit => hit.collider.GetComponentInParent<ISelectable>())
+                .FirstOrDefault(c => c != null);
+            _selectedbject.SetValue(_currentSelect);
+            if (_currentSelect != null)
+                _currentSelect.Selecting();
+        }
+
+        private void RightMouse(RaycastHit hit)
+        {
+            if (hit.collider.GetComponentInParent<ICanAttacked>()!=null)
             {
-                var hits = Physics.RaycastAll(ray);
-                if (hits.Length == 0)
-                    return;
-                if (_currentSelect != null)
-                    _currentSelect.Unselecting();
-                _currentSelect = hits
-                    .Select(hit => hit.collider.GetComponentInParent<ISelectable>())
-                    .FirstOrDefault(c => c != null);
-                _selectedbject.SetValue(_currentSelect);
-                if (_currentSelect != null)
-                    _currentSelect.Selecting();
+                _attackedValue.SetValue(hit.collider.GetComponentInParent<ICanAttacked>());
             }
             else
-            {
-                LayerMask mask = LayerMask.GetMask(LayerNamesGround)|LayerMask.GetMask(LayerNamesUnit);
-                if (Physics.Raycast(ray, out var hit, mask))
-                {
-                    if (hit.collider.GetComponentInParent<ICanAttacked>()!=null)
-                    {
-                        _attackedValue.SetValue(hit.collider.GetComponentInParent<ICanAttacked>());
-                    }
-                    else
-                        _groundPoint.SetValue(hit.point);
-                }
-            }
+                _groundPoint.SetValue(hit.point);
         }
     }
 }

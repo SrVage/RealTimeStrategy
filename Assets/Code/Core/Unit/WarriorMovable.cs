@@ -17,6 +17,7 @@ namespace Code.Core.Unit
         public event Action<AnimationStates> ChangeStates; 
         public override async void ExecuteSpecificCommand(IMoveCommand command)
         {
+            Debug.Log("move");
             _navMeshAgent.destination = command.Target;
             ChangeStates?.Invoke(AnimationStates.Run);
             _warriorStop.CancellationTokenSource = new CancellationTokenSource();

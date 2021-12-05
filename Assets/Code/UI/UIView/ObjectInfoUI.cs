@@ -2,8 +2,10 @@ using Code.Abstractions;
 using Code.ControlSystem;
 using Code.ControlSystem.Scriptable;
 using TMPro;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Code.UI.UIView
 {
@@ -15,12 +17,11 @@ namespace Code.UI.UIView
         [SerializeField] private TextMeshProUGUI _health;
         [SerializeField] private Image _healthSliderBackground;
         [SerializeField] private Image _healthSliderFillImage;
-        [SerializeField] private SelectableValue _selectable;
+        [Inject] private SelectableValue _selectable;
 
         private void Start()
         {
-            _selectable.OnSelected += OnSelected;
-            OnSelected(_selectable.CurrentValue);
+            _selectable.Result.Subscribe(OnSelected);
         }
 
         private void OnSelected(ISelectable selected)

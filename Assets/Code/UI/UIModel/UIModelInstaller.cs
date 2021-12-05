@@ -1,6 +1,4 @@
 using Code.Abstractions.Command;
-using Code.ControlSystem.Command;
-using Code.Tools.InjectAssetAttribute;
 using Code.Tools.Scriptable;
 using UnityEngine;
 using Zenject;

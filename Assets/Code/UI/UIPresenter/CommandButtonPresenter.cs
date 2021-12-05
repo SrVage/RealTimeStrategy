@@ -8,6 +8,7 @@ using Code.ControlSystem.Scriptable;
 using Code.Tools.InjectAssetAttribute;
 using Code.UI.UIModel;
 using Code.UI.UIView;
+using UniRx;
 using UnityEngine;
 using Zenject;
 
@@ -26,9 +27,8 @@ namespace Code.UI.UIPresenter
 
         private void Start()
         {
-            _selectable.OnSelected += onSelected;
-            _groundPoint.OnSelected += Move;
-            onSelected(_selectable.CurrentValue);
+            _selectable.Result.Subscribe(onSelected);
+            _groundPoint.Result.Subscribe(Move);
             _view.OnClick += _model.OnCommandButtonClicked;
             _model.OnCommandSent += _view.UnblockAllButton;
             _model.OnCommandCanceled += _view.UnblockAllButton;
@@ -39,13 +39,12 @@ namespace Code.UI.UIPresenter
         {
             if (_currentSelectable != null)
             {
-               Debug.Log(_move);
                 _model.Move(_move);
             }
         }
 
         private void onSelected(ISelectable selectable)
-        {
+        { 
             if (_currentSelectable == selectable)
                 return;
             _currentSelectable = selectable;

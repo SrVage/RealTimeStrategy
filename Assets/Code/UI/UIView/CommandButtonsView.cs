@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Code.Abstractions;
 using Code.Abstractions.Command;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -36,7 +37,7 @@ namespace Code.UI.UIView
                 var button = _executorTypesButton
                     .First(type => type.Key.IsInstanceOfType(commandExecutor)).Value;
                 button.SetActive(true);
-                button.GetComponent<Button>().onClick.AddListener(()=>OnClick?.Invoke(commandExecutor));
+                button.GetComponent<Button>().OnClickAsObservable().Subscribe(_ => OnClick.Invoke(commandExecutor));
             }
         }
         

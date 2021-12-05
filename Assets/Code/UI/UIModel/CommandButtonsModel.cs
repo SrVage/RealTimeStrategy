@@ -25,7 +25,6 @@ namespace Code.UI.UIModel
 
         public void OnCommandButtonClicked(ICommandExecutor commandExecutor)
         {
-            Debug.LogWarning(commandExecutor);
             if (_commandIsPending)
                 ProcessOnCancelled();
             _commandIsPending = true;
