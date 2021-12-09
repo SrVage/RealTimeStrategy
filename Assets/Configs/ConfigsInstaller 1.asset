@@ -16,3 +16,4 @@ MonoBehaviour:
   SelectableValue: {fileID: 11400000, guid: 6b6bfd69c695fa74483e6982d7993d2d, type: 2}
   AssetsContext: {fileID: 11400000, guid: c0816727e47c02441b3be8ce9f8f42af, type: 2}
   AttackedValue: {fileID: 11400000, guid: ea0e16abb98f1b54fbadc0262fa6d653, type: 2}
+  _footmanSprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}

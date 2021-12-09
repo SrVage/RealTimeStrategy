@@ -15,9 +15,9 @@ namespace Code.ControlSystem
         private const string LayerNamesUnit = "Unit";
         LayerMask mask;
         private Camera _camera;
-        [Inject] private SelectableValue _selectedbject;
-        [Inject] private GroundPointValue _groundPoint;
-        [Inject] private AttackedValue _attackedValue;
+        [SerializeField] private SelectableValue _selectedbject;
+        [SerializeField] private GroundPointValue _groundPoint;
+        [SerializeField] private AttackedValue _attackedValue;
         [SerializeField] private EventSystem _eventSystem;
         private ISelectable _currentSelect;
 

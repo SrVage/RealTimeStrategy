@@ -23,6 +23,8 @@ namespace Code.Core.Unit
             {
                 _movementStop.Stop -= onStop;
                 _isCompleted = true;
+                _movementStop._navMeshAgent.ResetPath();
+                Debug.Log("reset");
                 StartEvent();
             }
 
@@ -32,6 +34,16 @@ namespace Code.Core.Unit
 
         [SerializeField] private NavMeshAgent _navMeshAgent;
         public event Action Stop;
+
+        public void StopMove()
+        {
+            Stop?.Invoke();
+        }
+
+        public void SetDestination(Vector3 target)
+        {
+            _navMeshAgent.destination = target;
+        }
 
         private void Update()
         {

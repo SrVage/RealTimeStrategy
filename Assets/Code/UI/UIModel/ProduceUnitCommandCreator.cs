@@ -10,9 +10,13 @@ namespace Code.UI.UIModel
     public class ProduceUnitCommandCreator:CommandCreatorBase<IProduceUnitCommand>
     {
         [Inject] private AssetsContext _assetsContext;
+        [Inject] private DiContainer _container;
         protected override void classSpecificCommandCreator(Action<IProduceUnitCommand> creationCallback)
         {
-            creationCallback?.Invoke(_assetsContext.Inject(new ProduceUnitCommandHier()));
+            var produceUnitCommand = _assetsContext.Inject(new ProduceUnitCommandHier());
+            _container.Inject(produceUnitCommand);
+            creationCallback?.Invoke(produceUnitCommand);
+            
         }
     }
 }

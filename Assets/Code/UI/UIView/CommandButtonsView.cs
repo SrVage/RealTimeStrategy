@@ -17,6 +17,7 @@ namespace Code.UI.UIView
         [SerializeField] private GameObject _buttonMove;
         [SerializeField] private GameObject _buttonPatrol;
         [SerializeField] private GameObject _buttonCancel;
+        [SerializeField] private GameObject _buttonTarget;
 
         private Dictionary<Type, GameObject> _executorTypesButton;
 
@@ -28,6 +29,7 @@ namespace Code.UI.UIView
             _executorTypesButton.Add(typeof(CommandExecutorBase<IMoveCommand>), _buttonMove);
             _executorTypesButton.Add(typeof(CommandExecutorBase<IPatrolCommand>), _buttonPatrol);
             _executorTypesButton.Add(typeof(CommandExecutorBase<IStopCommand>), _buttonCancel);
+            _executorTypesButton.Add(typeof(CommandExecutorBase<IProduceTarget>), _buttonTarget);
         }
 
         public void MakeButton(IEnumerable<ICommandExecutor> commandExecutors)
@@ -56,6 +58,7 @@ namespace Code.UI.UIView
             _buttonMove.GetComponent<Selectable>().interactable = value;
             _buttonPatrol.GetComponent<Selectable>().interactable = value;
             _buttonProduce.GetComponent<Selectable>().interactable = value;
+            _buttonTarget.GetComponent<Selectable>().interactable = value;
         }
 
         public void Clear()

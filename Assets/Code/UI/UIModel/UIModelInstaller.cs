@@ -18,8 +18,13 @@ namespace Code.UI.UIModel
             Container.Bind<CommandCreatorBase<IPatrolCommand>>().To<PatrolCommandCreator>().AsTransient();
             Container.Bind<CommandCreatorBase<IProduceUnitCommand>>().To<ProduceUnitCommandCreator>().AsTransient();
             Container.Bind<CommandCreatorBase<IStopCommand>>().To<StopCommandCreator>().AsTransient();
+            Container.Bind<CommandCreatorBase<IProduceTarget>>().To<ProduceTargetCommandCreator>().AsTransient();
 
             Container.Bind<CommandButtonsModel>().AsTransient();
+
+            Container.Bind<float>().WithId("FootmanPBR").FromInstance(3f);
+            Container.Bind<string>().WithId("FootmanPBR").FromInstance("FootmanPBR");
+            Container.Bind<QueueProduceModel>().AsSingle();
         }
     }
 }

@@ -6,12 +6,10 @@ namespace Code.ControlSystem.Scriptable
 {
     public class BaseStatefulScriptableValue<T>:BaseScriptableValue<T>, IObservable<T>
     {
-        public override IAwaiter<T> GetAwaiter() => 
-            new NewValueNotifier<T>(this, Result);
-
         public ReactiveProperty<T> Result = new ReactiveProperty<T>();
         public override void SetValue(T selectable)
         {
+            base.SetValue(selectable);
             Result.Value = selectable;
         }
 

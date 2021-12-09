@@ -1,7 +1,5 @@
 using Code.Abstractions.Command;
-using Code.ControlSystem.Scriptable;
 using UnityEngine;
-using Zenject;
 
 namespace Code.ControlSystem.Command
 {

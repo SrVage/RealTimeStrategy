@@ -1,11 +1,7 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using Code.Abstractions;
 using Code.Abstractions.Command;
-using Code.ControlSystem;
-using Code.ControlSystem.Command;
-using Code.ControlSystem.Scriptable;
-using Code.Tools.InjectAssetAttribute;
 using Code.UI.UIModel;
 using Code.UI.UIView;
 using UniRx;
@@ -16,8 +12,8 @@ namespace Code.UI.UIPresenter
 {
     public class CommandButtonPresenter:MonoBehaviour
     {
-        [Inject] private SelectableValue _selectable;
-        [Inject] private GroundPointValue _groundPoint;
+        [Inject] private IObservable<ISelectable> _selectable;
+        [Inject] private IAwaitable<Vector3> _groundPoint;
         [SerializeField] private CommandButtonsView _view;
         
         [Inject] private CommandButtonsModel _model;
@@ -27,8 +23,8 @@ namespace Code.UI.UIPresenter
 
         private void Start()
         {
-            _selectable.Result.Subscribe(onSelected);
-            _groundPoint.Result.Subscribe(Move);
+            _selectable.Subscribe(onSelected);
+            //_groundPoint.Subscribe(Move);
             _view.OnClick += _model.OnCommandButtonClicked;
             _model.OnCommandSent += _view.UnblockAllButton;
             _model.OnCommandCanceled += _view.UnblockAllButton;

@@ -15,6 +15,7 @@ namespace Code.UI.UIModel
         [Inject] private CommandCreatorBase<IPatrolCommand> _patroller;
         [Inject] private CommandCreatorBase<IProduceUnitCommand> _creator;
         [Inject] private CommandCreatorBase<IStopCommand> _stopper;
+        [Inject] private CommandCreatorBase<IProduceTarget> _targetter;
         private bool _commandIsPending;
 
         public void Move(ICommandExecutor move)
@@ -38,6 +39,8 @@ namespace Code.UI.UIModel
             _patroller.ProcessCommandExecutor(commandExecutor,
                 command => ExecuteCommandWrapper(commandExecutor, command));
             _stopper.ProcessCommandExecutor(commandExecutor,
+                command => ExecuteCommandWrapper(commandExecutor, command));
+            _targetter.ProcessCommandExecutor(commandExecutor,
                 command => ExecuteCommandWrapper(commandExecutor, command));
         }
         

@@ -27,10 +27,11 @@ namespace Code.Core.Unit
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                /*Console.WriteLine(e);
+                throw;*/
             }
-
+            //_navMeshAgent.ResetPath();
+            _stop.StopMove();
             _warriorStop.CancellationTokenSource = null;
             ChangeStates?.Invoke(AnimationStates.Idle);
         }
