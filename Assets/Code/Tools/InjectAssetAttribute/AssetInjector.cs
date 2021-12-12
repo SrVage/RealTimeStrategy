@@ -1,7 +1,6 @@
 using System;
 using System.Reflection;
 using Code.Tools.Scriptable;
-using UnityEngine;
 
 namespace Code.Tools.InjectAssetAttribute
 {
@@ -10,17 +9,26 @@ namespace Code.Tools.InjectAssetAttribute
         private static readonly Type _injectAssetAttributeType = typeof(InjectAssetAttribute);
         public static T Inject<T>(this AssetsContext assetsContext, T target)
         {
-            Type type = target.GetType();
-            FieldInfo[] allFields = type.GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-            for (int i = 0; i < allFields.Length; i++)
+            var targetType = target.GetType();
+            while (targetType != null)
             {
-                FieldInfo field = allFields[i];
-                InjectAssetAttribute injectAttributes = (InjectAssetAttribute)field.GetCustomAttribute(_injectAssetAttributeType);
-                if (injectAttributes == null)
-                    continue;
-                var objectToInject = assetsContext.GetObjectOfType(field.FieldType, injectAttributes.AssetName);
-                field.SetValue(target, objectToInject);
+                var allFields = targetType.GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+
+                for (int i = 0; i < allFields.Length; i++)
+                {
+                    var fieldInfo = allFields[i];
+                    var injectAssetAttribute = fieldInfo.GetCustomAttribute(_injectAssetAttributeType) as InjectAssetAttribute;
+                    if (injectAssetAttribute == null)
+                    {
+                        continue;
+                    }
+                    var objectToInject = assetsContext.GetObjectOfType(fieldInfo.FieldType, injectAssetAttribute.AssetName);
+                    fieldInfo.SetValue(target, objectToInject);
+                }
+
+                targetType = targetType.BaseType;
             }
+
             return target;
         }
     }

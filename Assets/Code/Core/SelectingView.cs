@@ -14,6 +14,8 @@ namespace Code.Core
         [SerializeField] private float _health;
         [SerializeField] private Sprite _icon;
         private float _maxHealth = 1000;
+        public Transform Object => transform;
+
         public void Selecting()
         {
             GetComponent<Outline>().enabled = true;

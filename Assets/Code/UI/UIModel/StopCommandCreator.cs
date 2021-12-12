@@ -6,7 +6,7 @@ namespace Code.UI.UIModel
 {
     public class StopCommandCreator:CommandCreatorBase<IStopCommand>
     {
-        protected override void classSpecificCommandCreator(Action<IStopCommand> creationCallback) 
+        protected override void ClassSpecificCommandCreator(Action<IStopCommand> creationCallback) 
             => creationCallback?.Invoke(new StopCommand());
     }
 }

@@ -10,7 +10,6 @@ namespace Code.ControlSystem.Command
         public AttackCommand(ICanAttacked attacked)
         {
             Attacked = attacked;
-            Debug.Log(attacked.Transform);
         }
     }
 }

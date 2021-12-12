@@ -7,9 +7,8 @@ namespace Code.Abstractions.Command
         public bool IsCompleted => _isCompleted;
         protected event Action _continuation;
         protected bool _isCompleted;
-
-        protected void StartEvent() => _continuation?.Invoke();
-
+        private T _result;
+        
         public void OnCompleted(Action continuation)
         {
             if (_isCompleted)
@@ -17,7 +16,14 @@ namespace Code.Abstractions.Command
             else
                 _continuation = continuation;
         }
+        
+        protected void ONWaitFinish(T result)
+        {
+            _result = result;
+            _isCompleted = true;
+            _continuation?.Invoke();
+        }
 
-        public abstract T GetResult();
+        public T GetResult() => _result;
     }
 }

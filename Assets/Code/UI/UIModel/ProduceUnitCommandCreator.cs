@@ -11,7 +11,7 @@ namespace Code.UI.UIModel
     {
         [Inject] private AssetsContext _assetsContext;
         [Inject] private DiContainer _container;
-        protected override void classSpecificCommandCreator(Action<IProduceUnitCommand> creationCallback)
+        protected override void ClassSpecificCommandCreator(Action<IProduceUnitCommand> creationCallback)
         {
             var produceUnitCommand = _assetsContext.Inject(new ProduceUnitCommandHier());
             _container.Inject(produceUnitCommand);

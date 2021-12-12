@@ -5,16 +5,18 @@ using Code.Abstractions.Command;
 using Code.Tools;
 using Code.Tools.InjectAssetAttribute;
 using Code.Tools.Scriptable;
+using UnityEngine;
 using Zenject;
 
 namespace Code.UI.UIModel
 {
-    public abstract class CancelableCommandCreatorBase<TCommand, TArgument>:CommandCreatorBase<TCommand> where TCommand:ICommand
+    public abstract class CancelableCommandCreatorBase<TCommand, TArgument>
+        :CommandCreatorBase<TCommand> where TCommand:ICommand
     {
         [Inject] private AssetsContext _assetsContext;
         [Inject] private IAwaitable<TArgument> _awaitable;
         private CancellationTokenSource _cancellationToken;
-        protected override async void classSpecificCommandCreator(Action<TCommand> creationCallback)
+        protected override async void ClassSpecificCommandCreator(Action<TCommand> creationCallback)
         {
             _cancellationToken = new CancellationTokenSource();
             try

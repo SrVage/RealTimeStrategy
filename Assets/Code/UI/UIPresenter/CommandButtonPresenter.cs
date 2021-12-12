@@ -13,7 +13,6 @@ namespace Code.UI.UIPresenter
     public class CommandButtonPresenter:MonoBehaviour
     {
         [Inject] private IObservable<ISelectable> _selectable;
-        [Inject] private IAwaitable<Vector3> _groundPoint;
         [SerializeField] private CommandButtonsView _view;
         
         [Inject] private CommandButtonsModel _model;
@@ -24,25 +23,18 @@ namespace Code.UI.UIPresenter
         private void Start()
         {
             _selectable.Subscribe(onSelected);
-            //_groundPoint.Subscribe(Move);
             _view.OnClick += _model.OnCommandButtonClicked;
             _model.OnCommandSent += _view.UnblockAllButton;
             _model.OnCommandCanceled += _view.UnblockAllButton;
             _model.OnCommandAccepted += _view.BlockButton;
         }
 
-        private void Move(Vector3 obj)
-        {
-            if (_currentSelectable != null)
-            {
-                _model.Move(_move);
-            }
-        }
-
         private void onSelected(ISelectable selectable)
         { 
             if (_currentSelectable == selectable)
                 return;
+            if (_currentSelectable!=null)
+                _model.OnSelectionChanged();
             _currentSelectable = selectable;
             _view.Clear();
 
@@ -50,16 +42,8 @@ namespace Code.UI.UIPresenter
             {
                 var listExecutor = new List<ICommandExecutor>();
                 listExecutor.AddRange((selectable as Component).GetComponentsInParent<ICommandExecutor>());
-                _view.MakeButton(listExecutor);
-                foreach (var VARIABLE in listExecutor)
-                {
-                    if (VARIABLE is CommandExecutorBase<IMoveCommand>)
-                    {
-                        _move = VARIABLE;
-                        break;
-                    }
-                    _move = null;
-                }
+                var queue = (selectable as Component).GetComponentInParent<ICommandQueue>();
+                _view.MakeButton(listExecutor, queue);
             }
         }
     }

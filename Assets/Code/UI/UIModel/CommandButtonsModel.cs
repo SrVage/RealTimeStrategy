@@ -17,36 +17,35 @@ namespace Code.UI.UIModel
         [Inject] private CommandCreatorBase<IStopCommand> _stopper;
         [Inject] private CommandCreatorBase<IProduceTarget> _targetter;
         private bool _commandIsPending;
+        
 
-        public void Move(ICommandExecutor move)
-        {
-            _mover.ProcessCommandExecutor(move,
-                command => ExecuteCommandWrapper(move, command));
-        }
-
-        public void OnCommandButtonClicked(ICommandExecutor commandExecutor)
+        public void OnCommandButtonClicked(ICommandExecutor commandExecutor, ICommandQueue commandQueue)
         {
             if (_commandIsPending)
                 ProcessOnCancelled();
             _commandIsPending = true;
             OnCommandAccepted?.Invoke(commandExecutor);
             _creator.ProcessCommandExecutor(commandExecutor,
-                command => ExecuteCommandWrapper(commandExecutor, command));
+                command => ExecuteCommandWrapper(commandQueue, command));
             _mover.ProcessCommandExecutor(commandExecutor,
-                command => ExecuteCommandWrapper(commandExecutor, command));
+                command => ExecuteCommandWrapper(commandQueue, command));
             _attacker.ProcessCommandExecutor(commandExecutor,
-                command => ExecuteCommandWrapper(commandExecutor, command));
+                command => ExecuteCommandWrapper(commandQueue, command));
             _patroller.ProcessCommandExecutor(commandExecutor,
-                command => ExecuteCommandWrapper(commandExecutor, command));
+                command => ExecuteCommandWrapper(commandQueue, command));
             _stopper.ProcessCommandExecutor(commandExecutor,
-                command => ExecuteCommandWrapper(commandExecutor, command));
+                command => ExecuteCommandWrapper(commandQueue, command));
             _targetter.ProcessCommandExecutor(commandExecutor,
-                command => ExecuteCommandWrapper(commandExecutor, command));
+                command => ExecuteCommandWrapper(commandQueue, command));
         }
         
-        public void ExecuteCommandWrapper(ICommandExecutor executor, object command)
+        public void ExecuteCommandWrapper(ICommandQueue commandQueue, object command)
         {
-            executor.ExecuteCommand(command);
+            if (!Input.GetKey(KeyCode.LeftShift))
+            {
+                commandQueue.Clear();
+            }
+            commandQueue.EnqueueCommand(command);
             _commandIsPending = false;
             OnCommandSent?.Invoke();
         }

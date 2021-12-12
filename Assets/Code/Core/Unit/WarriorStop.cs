@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 using Code.Abstractions.Command;
 using UniRx;
 using UnityEngine;
@@ -38,7 +39,7 @@ namespace Code.Core.Unit
             }
         }
 
-        public override void ExecuteSpecificCommand(IStopCommand command)
+        public override async Task ExecuteSpecificCommand(IStopCommand command)
         {
             CancellationTokenSource?.Cancel();
         }

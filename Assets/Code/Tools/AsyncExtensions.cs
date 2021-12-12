@@ -1,6 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Code.Abstractions;
+using UnityEngine;
 
 namespace Code.Tools
 {
@@ -22,9 +23,10 @@ namespace Code.Tools
             return await originalTask;
         }
         
-        public static Task<TResult> AsTask<TResult>(this IAwaitable<TResult> awaitable) => 
-            Task.Run(async () => await awaitable);
-        public static async Task<TResult> WithCancellation<TResult>(this IAwaitable<TResult> originalTask, CancellationToken ct) =>
-            await WithCancellation(originalTask.AsTask(), ct);
+        public static Task<TResult> AsTask<TResult>(this IAwaitable<TResult> awaitable) 
+            => Task.Run(async () => await awaitable);
+
+        public static async Task<TResult> WithCancellation<TResult>(this IAwaitable<TResult> originalTask, CancellationToken ct) 
+            => await WithCancellation(originalTask.AsTask(), ct);
     }
 }

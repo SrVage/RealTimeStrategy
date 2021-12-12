@@ -22,23 +22,12 @@ namespace Code.Core.Unit
             private void onStop()
             {
                 _movementStop.Stop -= onStop;
-                _isCompleted = true;
-                _movementStop._navMeshAgent.ResetPath();
-                Debug.Log("reset");
-                StartEvent();
+                ONWaitFinish(new AsyncExtensions.Void());
             }
-
-            public override AsyncExtensions.Void GetResult() => 
-                new AsyncExtensions.Void();
         }
 
         [SerializeField] private NavMeshAgent _navMeshAgent;
         public event Action Stop;
-
-        public void StopMove()
-        {
-            Stop?.Invoke();
-        }
 
         public void SetDestination(Vector3 target)
         {

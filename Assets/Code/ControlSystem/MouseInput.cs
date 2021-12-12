@@ -35,7 +35,7 @@ namespace Code.ControlSystem
                 .Where(_ => !_eventSystem.IsPointerOverGameObject())
                 .Select(h => (Physics.RaycastAll(_camera.ScreenPointToRay(Input.mousePosition), mask)));
             leftClickStream.Subscribe(hit=>LeftMouse(hit));
-            rightClickStream.Subscribe(hit => RightMouse(hit.FirstOrDefault()));
+            rightClickStream.Subscribe(hit => RightMouse(hit));
         }
 
         private void LeftMouse(RaycastHit[] hits)
@@ -50,14 +50,16 @@ namespace Code.ControlSystem
                 _currentSelect.Selecting();
         }
 
-        private void RightMouse(RaycastHit hit)
+        private void RightMouse(RaycastHit[] hit)
         {
-            if (hit.collider.GetComponentInParent<ICanAttacked>()!=null)
+            hit.Select(hit => hit.collider.GetComponentInParent<ICanAttacked>()).Where(hit=>hit!=null).FirstOrDefault(attacked =>
             {
-                _attackedValue.SetValue(hit.collider.GetComponentInParent<ICanAttacked>());
+                _attackedValue.SetValue(attacked);
+                return true;
+            });
+            {
+                _groundPoint.SetValue(hit.Select(hit=>hit.point).FirstOrDefault());
             }
-            else
-                _groundPoint.SetValue(hit.point);
         }
     }
 }

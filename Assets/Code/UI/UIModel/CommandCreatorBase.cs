@@ -4,18 +4,17 @@ using UnityEngine;
 
 namespace Code.UI.UIModel
 {
-    public abstract class CommandCreatorBase<T> where T:ICommand
+    public abstract class CommandCreatorBase<T> where T: ICommand
     {
         public ICommandExecutor ProcessCommandExecutor(ICommandExecutor commandExecutor, Action<T> callback)
         {
-            var classSpecificCommandExecutor = commandExecutor as CommandExecutorBase<T>;
-            if (classSpecificCommandExecutor != null)
+            if (commandExecutor is ICommandExecutor<T> specificExecutor)
             {
-                classSpecificCommandCreator(callback);
+                ClassSpecificCommandCreator(callback);
             }
             return commandExecutor;
         }
-        protected abstract void classSpecificCommandCreator(Action<T> creationCallback);
+        protected abstract void ClassSpecificCommandCreator(Action<T> creationCallback);
 
         public virtual void ProcessCancel()
         {

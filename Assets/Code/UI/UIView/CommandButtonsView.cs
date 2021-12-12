@@ -11,7 +11,7 @@ namespace Code.UI.UIView
 {
     public class CommandButtonsView:MonoBehaviour
     {
-        public Action<ICommandExecutor> OnClick;
+        public Action<ICommandExecutor, ICommandQueue> OnClick;
         [SerializeField] private GameObject _buttonAttack;
         [SerializeField] private GameObject _buttonProduce;
         [SerializeField] private GameObject _buttonMove;
@@ -24,22 +24,22 @@ namespace Code.UI.UIView
         private void Start()
         {
             _executorTypesButton = new Dictionary<Type, GameObject>();
-            _executorTypesButton.Add(typeof(CommandExecutorBase<IAttackCommand>), _buttonAttack);
-            _executorTypesButton.Add(typeof(CommandExecutorBase<IProduceUnitCommand>), _buttonProduce);
-            _executorTypesButton.Add(typeof(CommandExecutorBase<IMoveCommand>), _buttonMove);
-            _executorTypesButton.Add(typeof(CommandExecutorBase<IPatrolCommand>), _buttonPatrol);
-            _executorTypesButton.Add(typeof(CommandExecutorBase<IStopCommand>), _buttonCancel);
-            _executorTypesButton.Add(typeof(CommandExecutorBase<IProduceTarget>), _buttonTarget);
+            _executorTypesButton.Add(typeof(ICommandExecutor<IAttackCommand>), _buttonAttack);
+            _executorTypesButton.Add(typeof(ICommandExecutor<IProduceUnitCommand>), _buttonProduce);
+            _executorTypesButton.Add(typeof(ICommandExecutor<IMoveCommand>), _buttonMove);
+            _executorTypesButton.Add(typeof(ICommandExecutor<IPatrolCommand>), _buttonPatrol);
+            _executorTypesButton.Add(typeof(ICommandExecutor<IStopCommand>), _buttonCancel);
+            _executorTypesButton.Add(typeof(ICommandExecutor<IProduceTarget>), _buttonTarget);
         }
 
-        public void MakeButton(IEnumerable<ICommandExecutor> commandExecutors)
+        public void MakeButton(IEnumerable<ICommandExecutor> commandExecutors, ICommandQueue queue)
         {
             foreach (var commandExecutor in commandExecutors)
             {
                 var button = _executorTypesButton
                     .First(type => type.Key.IsInstanceOfType(commandExecutor)).Value;
                 button.SetActive(true);
-                button.GetComponent<Button>().OnClickAsObservable().Subscribe(_ => OnClick.Invoke(commandExecutor));
+                button.GetComponent<Button>().OnClickAsObservable().Subscribe(_ => OnClick.Invoke(commandExecutor, queue));
             }
         }
         

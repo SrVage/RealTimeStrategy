@@ -5,12 +5,13 @@ namespace Code.ControlSystem.Command
 {
     public class PatrolCommand:IPatrolCommand
     {
-        public PatrolCommand(Vector3 target)
+        public PatrolCommand(Vector3 target, Vector3 current)
         {
             Target = target;
-            Debug.Log("Patrol"+target);
+            Current = current;
         }
 
         public Vector3 Target { get; }
+        public Vector3 Current { get; }
     }
 }

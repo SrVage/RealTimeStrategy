@@ -12,9 +12,9 @@ namespace Code.Core.Unit
         [SerializeField] private Animator _animator;
         [SerializeField] private WarriorMovable _warriorMovable;
 
-        private void Awake()
+        public void Init(IChangeAnimation changer)
         {
-            _warriorMovable.ChangeStates += ChangeAnimation;
+            changer.ChangeAnimation += ChangeAnimation;
         }
 
         private void ChangeAnimation(AnimationStates states)

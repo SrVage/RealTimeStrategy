@@ -7,12 +7,9 @@ namespace Code.UI.UIModel
 {
     public class UIModelInstaller:MonoInstaller
     {
-        [SerializeField] private AssetsContext _context;
 
         public override void InstallBindings()
         {
-            Container.Bind<AssetsContext>().FromInstance(_context);
-
             Container.Bind<CommandCreatorBase<IAttackCommand>>().To<AttackCommandCreator>().AsTransient();
             Container.Bind<CommandCreatorBase<IMoveCommand>>().To<MoveCommandCreator>().AsTransient();
             Container.Bind<CommandCreatorBase<IPatrolCommand>>().To<PatrolCommandCreator>().AsTransient();
