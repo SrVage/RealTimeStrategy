@@ -19,6 +19,7 @@ namespace Code.Core
         }
         public void ReceivedDamage(float amount)
         {
+            Debug.Log(Health);
             if (Health <= 0)
                 return;
             Health -= amount;
